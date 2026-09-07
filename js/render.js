@@ -149,6 +149,39 @@ const Render = (function () {
     }).join(''));
   }
 
+  /* ── Perguntas frequentes ───────────────────────────────────── */
+  function faq(data) {
+    text('faq-eyebrow', data.eyebrow);
+    mount('faq-title', data.title);
+
+    mount('faq-list', data.items.map(function (it, i) {
+      return '<details class="faq-item reveal" style="--d:' + (i * 50) + 'ms">'
+        + '<summary>' + it.q
+        +   '<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+        +     ' stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'
+        + '</summary>'
+        + '<div class="faq-answer"><p>' + it.a + '</p></div>'
+        + '</details>';
+    }).join(''));
+
+    // Dados estruturados FAQPage (fonte única = data.js)
+    var ld = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      'mainEntity': data.items.map(function (it) {
+        return {
+          '@type': 'Question',
+          'name': it.q,
+          'acceptedAnswer': { '@type': 'Answer', 'text': it.a.replace(/<[^>]+>/g, '') }
+        };
+      })
+    };
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify(ld);
+    document.head.appendChild(s);
+  }
+
   /* ── Depoimentos ─────────────────────────────────────────────── */
   function testimonials(data) {
     text('testimonials-eyebrow', data.eyebrow);
@@ -263,6 +296,7 @@ const Render = (function () {
     manifesto(data.manifesto);
     services(data.services);
     process(data.process);
+    faq(data.faq);
     testimonials(data.testimonials);
     contact(data.contact, data.partners, data.brand);
     contactAreas(data.contactAreas);

@@ -223,6 +223,38 @@ const SITE = {
     ],
   },
 
+  /* ── Perguntas frequentes ───────────────────────────────────── */
+  faq: {
+    eyebrow: 'Perguntas frequentes',
+    title:   'Dúvidas <em>comuns</em>',
+    items: [
+      {
+        q: 'Vocês atendem só empresas ou também pessoas físicas?',
+        a: 'Atendemos empresas, empresários e famílias. O foco é empresarial e patrimonial — contratos, questões societárias, trabalhistas e tributárias da empresa — e também a organização e a proteção do patrimônio pessoal e a sucessão familiar.',
+      },
+      {
+        q: 'Como funciona o primeiro contato?',
+        a: 'Você fala com o escritório por WhatsApp, e-mail ou pelo formulário do site, contando brevemente a situação. Retornamos para agendar uma conversa inicial — presencial em Curitiba ou online.',
+      },
+      {
+        q: 'O escritório atende fora de Curitiba?',
+        a: 'Sim. A base é em Curitiba e na região metropolitana, com atendimento presencial na região e digital em todo o Brasil.',
+      },
+      {
+        q: 'Qual a diferença entre atuação consultiva, preventiva e contenciosa?',
+        a: 'Consultiva é a orientação no dia a dia para decidir com segurança. Preventiva é estruturar contratos e rotinas para evitar o conflito antes que ele exista. Contenciosa é a defesa dos seus interesses em negociação, em câmara arbitral ou em juízo, quando o conflito já chegou. No TQA, as três frentes ficam com a mesma equipe.',
+      },
+      {
+        q: 'Preciso ter empresa para fazer planejamento patrimonial e sucessório?',
+        a: 'Não. O planejamento serve tanto para o patrimônio de empresários quanto para famílias — imóveis, participações societárias, investimentos e a organização da herança, inclusive por meio de holding quando faz sentido.',
+      },
+      {
+        q: 'Como são definidos os honorários?',
+        a: 'Os honorários são definidos caso a caso, conforme a natureza, a complexidade e a extensão da demanda, em observância à Tabela de Honorários da OAB/PR. O primeiro contato destina-se a entender a situação.',
+      },
+    ],
+  },
+
   /* ── Contato ─────────────────────────────────────────────────── */
   contact: {
     eyebrow: 'Contato',

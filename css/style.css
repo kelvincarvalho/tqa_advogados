@@ -557,6 +557,36 @@ h2 em::after {
 .pstep-body p { font-size: .85rem; color: var(--text-soft); font-weight: 300; line-height: 1.7; }
 
 /* ============================================================
+   PERGUNTAS FREQUENTES
+   ============================================================ */
+.faq { background: var(--paper); padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 5vw, 3rem); }
+.faq-inner { max-width: 800px; margin: 0 auto; }
+.faq .section-head { margin-bottom: 2.4rem; }
+
+.faq-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-item summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1.4rem;
+  padding: 1.35rem 0;
+  font-family: var(--geo); font-weight: 500; font-size: 1.02rem; color: var(--text);
+  transition: color .2s;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::marker { content: ''; }
+.faq-item summary:hover { color: var(--rust); }
+.faq-chevron {
+  width: 20px; height: 20px; flex-shrink: 0; margin-top: .1rem;
+  color: var(--rust); transition: transform .3s var(--ease);
+}
+.faq-item[open] summary { color: var(--rust); }
+.faq-item[open] .faq-chevron { transform: rotate(180deg); }
+.faq-answer { padding: 0 0 1.5rem; max-width: 64ch; }
+.faq-answer p { font-size: .92rem; color: var(--text-soft); font-weight: 300; line-height: 1.85; }
+.faq-item[open] .faq-answer { animation: faqReveal .28s var(--ease); }
+@keyframes faqReveal { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+/* ============================================================
    DEPOIMENTOS
    ============================================================ */
 .testimonials {
@@ -788,7 +818,7 @@ h2 em::after {
 @media (max-width: 680px) {
   :root { --nav-h: 64px; }
 
-  section, .partners, .manifesto, .services, .process, .testimonials, .contact {
+  section, .partners, .manifesto, .services, .process, .faq, .testimonials, .contact {
     padding-left: max(1.25rem, env(safe-area-inset-left));
     padding-right: max(1.25rem, env(safe-area-inset-right));
     padding-top: clamp(3.25rem, 12vw, 4.5rem);
