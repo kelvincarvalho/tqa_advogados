@@ -1,0 +1,15 @@
+# Material de origem da identidade visual (kit completo — não faz parte do site publicado)
+documents/
+
+# Configuração local do Claude Code (permissões específicas da máquina)
+.claude/settings.local.json
+
+# Arquivos de trabalho temporários
+_*.html
+_*.gif
+*.log
+
+# Sistema operacional
+Thumbs.db
+.DS_Store
+desktop.ini
