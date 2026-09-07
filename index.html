@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TQA Advogados</title>
-  <meta name="description" content="Terres &amp; Queiroz Advogados — assessoria jurídica empresarial e patrimonial em Curitiba e todo o Brasil. Atuação consultiva, preventiva e contenciosa sob a mesma equipe. OAB/PR 116.683 e 128.467.">
+  <title>TQA Advogados — Advocacia Empresarial e Patrimonial em Curitiba</title>
+  <meta name="description" content="Terres &amp; Queiroz Advogados — assessoria jurídica empresarial e patrimonial em Curitiba e região: direito societário, contratos, tributário e planejamento sucessório.">
   <meta name="author" content="Terres &amp; Queiroz Advogados">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
   <meta name="geo.region" content="BR-PR">
   <meta name="geo.placename" content="Curitiba">
   <meta name="theme-color" content="#301E10">
@@ -21,6 +22,7 @@
   <meta property="og:image"       content="https://tqadvogados.adv.br/assets/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt"   content="Terres &amp; Queiroz Advogados — assessoria jurídica empresarial e patrimonial">
   <meta property="og:locale"      content="pt_BR">
   <meta property="og:site_name"   content="Terres &amp; Queiroz Advogados">
   <meta name="twitter:card"       content="summary_large_image">
@@ -34,14 +36,19 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": ["LegalService", "LocalBusiness"],
+    "@type": ["LegalService", "LocalBusiness", "Attorney"],
+    "@id": "https://tqadvogados.adv.br/#escritorio",
     "name": "Terres & Queiroz Advogados",
     "alternateName": "TQA Advogados",
-    "description": "Assessoria jurídica empresarial e patrimonial. Atuação consultiva, preventiva e contenciosa sob a mesma equipe.",
+    "description": "Assessoria jurídica empresarial e patrimonial em Curitiba e região. Atuação consultiva, preventiva e contenciosa sob a mesma equipe, para empresas, empresários e famílias.",
     "url": "https://tqadvogados.adv.br",
     "email": "contato@tqadvogados.adv.br",
+    "telephone": "+55-41-98885-5715",
     "image": "https://tqadvogados.adv.br/assets/og-image.jpg",
+    "logo": "https://tqadvogados.adv.br/assets/favicon-512.png",
     "priceRange": "$$",
+    "currenciesAccepted": "BRL",
+    "knowsLanguage": "pt-BR",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Curitiba",
@@ -50,9 +57,29 @@
     },
     "areaServed": [
       { "@type": "City", "name": "Curitiba" },
+      { "@type": "City", "name": "São José dos Pinhais" },
+      { "@type": "City", "name": "Pinhais" },
+      { "@type": "City", "name": "Araucária" },
+      { "@type": "City", "name": "Colombo" },
+      { "@type": "City", "name": "Campo Largo" },
+      { "@type": "AdministrativeArea", "name": "Região Metropolitana de Curitiba" },
       { "@type": "State", "name": "Paraná" },
       { "@type": "Country", "name": "Brasil" }
     ],
+    "knowsAbout": [
+      "Direito Empresarial", "Direito Societário", "Contratos empresariais",
+      "Direito do Trabalho empresarial", "Contencioso empresarial", "Direito Tributário",
+      "Due diligence patrimonial", "Planejamento patrimonial e sucessório",
+      "Direito Imobiliário", "Direito Notarial", "Legal Operations", "Compliance"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "atendimento",
+      "email": "contato@tqadvogados.adv.br",
+      "telephone": "+55-41-98885-5715",
+      "availableLanguage": "Portuguese",
+      "areaServed": "BR"
+    },
     "sameAs": [
       "https://www.instagram.com/tqa.advogados",
       "https://www.linkedin.com/company/terres-queiroz-advogados"
@@ -61,28 +88,33 @@
       "@type": "OfferCatalog",
       "name": "Áreas de atuação",
       "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Assessoria Full Service Empresarial" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Assessoria Trabalhista Empresarial" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Direito Societário" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Contratos" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Contencioso Empresarial" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Due Diligence Patrimonial" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Planejamento Patrimonial e Sucessório" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Direito Tributário" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Direito Imobiliário e Notarial" } }
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Assessoria Full Service Empresarial", "serviceType": "Direito Empresarial" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Assessoria Trabalhista Empresarial", "serviceType": "Direito do Trabalho" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Direito Societário", "serviceType": "Direito Societário" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Contratos", "serviceType": "Direito Contratual" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Contencioso Empresarial", "serviceType": "Contencioso Cível" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Due Diligence Patrimonial", "serviceType": "Consultoria jurídica" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Planejamento Patrimonial e Sucessório", "serviceType": "Direito de Família e Sucessões" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Direito Tributário", "serviceType": "Direito Tributário" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Direito Imobiliário e Notarial", "serviceType": "Direito Imobiliário" } }
       ]
     },
-    "employee": [
+    "founder": [
       {
         "@type": "Person",
         "name": "Isabela Terres",
         "jobTitle": "Advogada Sócia",
-        "hasCredential": { "@type": "EducationalOccupationalCredential", "credentialCategory": "OAB/PR 128.467" }
+        "alumniOf": ["Universidade Federal do Paraná", "FAE Business School"],
+        "knowsAbout": ["Planejamento sucessório", "Direito Societário", "Direito Tributário", "Direito Imobiliário", "Proteção patrimonial"],
+        "hasCredential": { "@type": "EducationalOccupationalCredential", "credentialCategory": "OAB/PR 128.467" },
+        "sameAs": ["https://www.instagram.com/terresisabela_adv"]
       },
       {
         "@type": "Person",
         "name": "José Queiroz",
         "jobTitle": "Advogado Sócio",
+        "alumniOf": ["Centro Universitário Autônomo do Brasil (UniBrasil)"],
+        "knowsAbout": ["Contencioso empresarial", "Legal Operations", "Direito Consultivo Empresarial", "Compliance", "Direito Digital"],
         "hasCredential": { "@type": "EducationalOccupationalCredential", "credentialCategory": "OAB/PR 116.683" }
       }
     ]
