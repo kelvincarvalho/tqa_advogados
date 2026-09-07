@@ -52,9 +52,9 @@ body {
 }
 body.no-scroll { overflow: hidden; }
 
-/* Telas muito largas: aumenta a caixa de conteúdo para não sobrar vazio nas laterais */
-@media (min-width: 1600px) { :root { --wrap: 1440px; } }
-@media (min-width: 2000px) { :root { --wrap: 1560px; } }
+/* Telas muito largas: leve folga na caixa de conteúdo, mantendo a coluna
+   coesa e centrada (todo o conteúdo do site vive dentro dela) */
+@media (min-width: 1700px) { :root { --wrap: 1340px; } }
 
 ::selection { background: var(--rust); color: var(--cream); }
 ::-webkit-scrollbar { width: 10px; }
@@ -375,15 +375,15 @@ h2 em::after {
 }
 .section-lead strong { color: var(--text); font-weight: 500; }
 
-/* Sócios: cabeçalho e cards no mesmo bloco central; os cards ficam
-   limitados em largura e alinhados à esquerda (mesma lógica de Dúvidas) */
+/* Sócios: cabeçalho e cards compartilham a mesma coluna central (--wrap),
+   ocupando toda a largura como as demais seções */
 .partners-grid {
   max-width: var(--wrap); margin: 0 auto;
   display: grid; grid-template-columns: 1fr; gap: clamp(1.5rem, 3vw, 2.25rem);
 }
-.partner { width: 100%; max-width: 1040px; justify-self: start; }
+.partner { width: 100%; }
 .partner {
-  display: grid; grid-template-columns: 320px minmax(0, 1fr);
+  display: grid; grid-template-columns: clamp(320px, 34%, 460px) minmax(0, 1fr);
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 8px; overflow: hidden;
@@ -395,7 +395,7 @@ h2 em::after {
   transform: translateY(-4px);
 }
 /* alterna o lado da foto */
-.partner:nth-child(even) { grid-template-columns: minmax(0, 1fr) 320px; }
+.partner:nth-child(even) { grid-template-columns: minmax(0, 1fr) clamp(320px, 34%, 460px); }
 .partner:nth-child(even) .partner-photo { order: 2; }
 
 .partner-photo {
@@ -432,7 +432,7 @@ h2 em::after {
 .partner-body { padding: clamp(1.6rem, 3vw, 2.4rem) clamp(1.5rem, 2.6vw, 2.2rem); min-width: 0; align-self: center; }
 .partner-role { font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--rust); }
 .partner-name { font-size: clamp(1.5rem, 2.4vw, 1.85rem); margin: .3rem 0 1rem; }
-.partner-bio { font-size: .9rem; color: var(--text-soft); font-weight: 300; line-height: 1.85; max-width: 56ch; }
+.partner-bio { font-size: .9rem; color: var(--text-soft); font-weight: 300; line-height: 1.85; max-width: 60ch; }
 .partner-bio strong { color: var(--text); font-weight: 500; }
 .partner-focus {
   list-style: none; display: flex; flex-wrap: wrap; gap: .4rem;
@@ -523,9 +523,9 @@ h2 em::after {
   padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 5vw, 3rem);
 }
 .process-inner { max-width: var(--wrap); margin: 0 auto; }
-.process-head { max-width: 620px; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
-.process-head h2 { margin: .9rem 0 1rem; }
-.process-lead { color: var(--text-soft); font-weight: 300; font-size: 1rem; line-height: 1.8; }
+.process-head { margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+.process-head h2 { margin: .9rem 0 1rem; max-width: 24ch; }
+.process-lead { max-width: 62ch; color: var(--text-soft); font-weight: 300; font-size: 1rem; line-height: 1.8; }
 
 .process-steps {
   list-style: none;
@@ -564,7 +564,6 @@ h2 em::after {
 .faq .section-head { margin-bottom: 2.4rem; }
 
 .faq-list {
-  max-width: 1040px;
   display: flex; flex-direction: column; border-top: 1px solid var(--line);
 }
 .faq-item { border-bottom: 1px solid var(--line); }
@@ -584,7 +583,7 @@ h2 em::after {
 }
 .faq-item[open] summary { color: var(--rust); }
 .faq-item[open] .faq-chevron { transform: rotate(180deg); }
-.faq-answer { padding: 0 0 1.5rem; max-width: 64ch; }
+.faq-answer { padding: 0 0 1.5rem; max-width: 70ch; }
 .faq-answer p { font-size: .92rem; color: var(--text-soft); font-weight: 300; line-height: 1.85; }
 .faq-item[open] .faq-answer { animation: faqReveal .28s var(--ease); }
 @keyframes faqReveal { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
