@@ -36,6 +36,7 @@ const SITE = {
     { label: 'O escritório',     target: 'socios' },
     { label: 'Atuação',          target: 'servicos' },
     { label: 'Como trabalhamos', target: 'processo' },
+    { label: 'Dúvidas',          target: 'faq' },
     { label: 'Depoimentos',      target: 'depoimentos' },
     { label: 'Contato',          target: 'contato' },
   ],

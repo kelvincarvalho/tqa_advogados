@@ -560,10 +560,13 @@ h2 em::after {
    PERGUNTAS FREQUENTES
    ============================================================ */
 .faq { background: var(--paper); padding: clamp(4rem, 9vw, 7rem) clamp(1.25rem, 5vw, 3rem); }
-.faq-inner { max-width: 800px; margin: 0 auto; }
+.faq-inner { max-width: var(--wrap); margin: 0 auto; }
 .faq .section-head { margin-bottom: 2.4rem; }
 
-.faq-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.faq-list {
+  max-width: 820px;
+  display: flex; flex-direction: column; border-top: 1px solid var(--line);
+}
 .faq-item { border-bottom: 1px solid var(--line); }
 .faq-item summary {
   list-style: none; cursor: pointer;
