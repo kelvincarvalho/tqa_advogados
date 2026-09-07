@@ -93,9 +93,9 @@ const Render = (function () {
 
       return '<article class="partner reveal" style="--d:' + (i * 120) + 'ms">'
         + '<div class="partner-photo">'
-        +   '<img src="' + p.photo + '" alt="' + p.photoAlt + '" loading="lazy"'
-        +     ' onerror="this.style.display=\'none\';this.parentNode.classList.add(\'is-placeholder\')">'
         +   '<span class="partner-initials" aria-hidden="true">' + initials + '</span>'
+        +   '<img src="' + p.photo + '" alt="' + p.photoAlt + '"'
+        +     ' onerror="this.remove()">'
         +   '<span class="partner-oab">' + p.oab + '</span>'
         + '</div>'
         + '<div class="partner-body">'
