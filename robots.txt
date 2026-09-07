@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tqadvogados.adv.br/sitemap.xml
