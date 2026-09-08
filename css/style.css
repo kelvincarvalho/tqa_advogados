@@ -99,7 +99,7 @@ body.no-scroll { overflow: hidden; }
   padding: calc(var(--nav-h) + 3rem) clamp(1.25rem, 5vw, 3rem) 4rem;
   color: var(--text);
 }
-.noscript-fallback h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin-bottom: 1rem; }
+.noscript-fallback .ns-title { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; margin-bottom: 1rem; color: var(--text); }
 .noscript-fallback h2 { font-size: 1.15rem; margin: 2rem 0 .6rem; }
 .noscript-fallback p { margin-bottom: 1rem; color: var(--text-soft); }
 .noscript-fallback ul { margin: 0 0 1rem 1.2rem; color: var(--text-soft); }

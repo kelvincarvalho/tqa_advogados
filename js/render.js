@@ -1,9 +1,15 @@
 /**
  * Terres & Queiroz Advogados (TQA)
- * render.js — Injeta o conteúdo de data.js no DOM
+ * render.js — Monta as partes dinâmicas do site
  *
- * Cada função recebe dados e escreve HTML no container correspondente.
- * Sem efeitos colaterais além do DOM.
+ * O CONTEÚDO DO SITE (textos, sócios, serviços, FAQ) fica direto no
+ * index.html — é HTML estático, indexável sem depender de JS.
+ *
+ * Aqui ficam só as partes repetitivas / interativas montadas a partir
+ * de js/data.js:
+ *   • o menu (links do topo + overlay mobile) — SITE.nav
+ *   • os cartões de contato dos sócios e as pílulas de rede social
+ *   • as opções do <select> do formulário — SITE.contactAreas
  */
 
 'use strict';
@@ -18,14 +24,7 @@ const Render = (function () {
     var el = document.getElementById(id);
     if (el) el.textContent = value;
   }
-  function repeat(str, n) {
-    var out = '';
-    for (var i = 0; i < n; i++) out += str;
-    return out;
-  }
-  /* Escapa texto/atributos ao montar HTML por concatenação.
-     NÃO usar nos campos *Html (bioHtml, titleHtml, leadHtml…), que
-     contêm marcação proposital e vão direto pelo mount(). */
+  /* Escapa texto/atributos ao montar HTML por concatenação. */
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -65,145 +64,8 @@ const Render = (function () {
       + '</div>');
   }
 
-  /* ── Faixa de áreas (marquee) ───────────────────────────────── */
-  function marquee(items) {
-    if (!items || !items.length) return;
-    var seq = items.concat(items); // duplica para loop contínuo
-    mount('marquee-track', seq.map(function (t) {
-      return '<span class="marquee-item">' + esc(t) + '</span>';
-    }).join(''));
-  }
-
-  /* ── O escritório / Sócios ──────────────────────────────────── */
-  function partnersSection(head) {
-    text('socios-eyebrow', head.eyebrow);
-    mount('socios-title', head.title);
-    mount('socios-lead', head.leadHtml);
-  }
-
-  function partners(list) {
-    mount('partners-grid', list.map(function (p, i) {
-      var initials = p.name.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join('');
-      var chips = (p.focus || []).map(function (f) {
-        return '<li>' + esc(f) + '</li>';
-      }).join('');
-
-      return '<article class="partner reveal" style="--d:' + (i * 120) + 'ms">'
-        + '<div class="partner-photo">'
-        +   '<span class="partner-initials" aria-hidden="true">' + esc(initials) + '</span>'
-        +   '<img src="' + esc(p.photo) + '" alt="' + esc(p.photoAlt) + '"'
-        +     ' onerror="this.remove()">'
-        +   '<span class="partner-oab">' + esc(p.oab) + '</span>'
-        + '</div>'
-        + '<div class="partner-body">'
-        +   '<p class="partner-role">' + esc(p.role) + '</p>'
-        +   '<h3 class="partner-name">' + esc(p.name) + '</h3>'
-        +   '<p class="partner-bio">' + p.bioHtml + '</p>'
-        +   (chips ? '<ul class="partner-focus">' + chips + '</ul>' : '')
-        + '</div>'
-        + '</article>';
-    }).join(''));
-  }
-
-  /* ── Manifesto ───────────────────────────────────────────────── */
-  function manifesto(data) {
-    text('manifesto-eyebrow', data.eyebrow);
-    mount('manifesto-title', data.titleHtml);
-    mount('manifesto-lead', data.leadHtml);
-    mount('manifesto-text', data.textHtml);
-    mount('manifesto-cta',
-      '<a href="#contato" class="btn btn-solid-light" data-scroll>' + esc(data.cta.label) + ' →</a>');
-  }
-
-  /* ── Serviços ────────────────────────────────────────────────── */
-  function services(data) {
-    text('services-eyebrow', data.eyebrow);
-    mount('services-title', data.title);
-    text('services-desc', data.desc);
-
-    mount('services-grid', data.items.map(function (s, i) {
-      return '<article class="service reveal" style="--d:' + ((i % 3) * 70) + 'ms">'
-        + '<span class="service-n">' + String(i + 1).padStart(2, '0') + '</span>'
-        + '<h3 class="service-t">' + esc(s.title) + '</h3>'
-        + '<p class="service-d">' + esc(s.description) + '</p>'
-        + '</article>';
-    }).join(''));
-  }
-
-  /* ── Como trabalhamos ───────────────────────────────────────── */
-  function process(data) {
-    text('process-eyebrow', data.eyebrow);
-    mount('process-title', data.title);
-    text('process-lead', data.lead);
-    mount('process-steps', data.steps.map(function (s, i) {
-      return '<li class="pstep reveal" style="--d:' + (i * 80) + 'ms">'
-        + '<span class="pstep-n">' + String(i + 1).padStart(2, '0') + '</span>'
-        + '<div class="pstep-body">'
-        +   '<h3>' + esc(s.title) + '</h3>'
-        +   '<p>' + esc(s.desc) + '</p>'
-        + '</div>'
-        + '</li>';
-    }).join(''));
-  }
-
-  /* ── Perguntas frequentes ───────────────────────────────────── */
-  function faq(data) {
-    text('faq-eyebrow', data.eyebrow);
-    mount('faq-title', data.title);
-
-    mount('faq-list', data.items.map(function (it, i) {
-      return '<details class="faq-item reveal" style="--d:' + (i * 50) + 'ms">'
-        + '<summary>' + esc(it.q)
-        +   '<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
-        +     ' stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'
-        + '</summary>'
-        + '<div class="faq-answer"><p>' + esc(it.a) + '</p></div>'
-        + '</details>';
-    }).join(''));
-
-    // Dados estruturados FAQPage (fonte única = data.js)
-    var ld = {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      'mainEntity': data.items.map(function (it) {
-        return {
-          '@type': 'Question',
-          'name': it.q,
-          'acceptedAnswer': { '@type': 'Answer', 'text': it.a.replace(/<[^>]+>/g, '') }
-        };
-      })
-    };
-    var s = document.createElement('script');
-    s.type = 'application/ld+json';
-    s.textContent = JSON.stringify(ld);
-    document.head.appendChild(s);
-  }
-
-  /* ── Depoimentos ─────────────────────────────────────────────── */
-  function testimonials(data) {
-    text('testimonials-eyebrow', data.eyebrow);
-    mount('testimonials-title', data.title);
-    mount('testimonials-grid', data.items.map(function (t, i) {
-      var stars = Math.max(0, Math.min(5, parseInt(t.stars, 10) || 0));
-      return '<figure class="testi reveal" style="--d:' + (i * 90) + 'ms">'
-        + '<div class="testi-stars" aria-label="' + stars + ' de 5 estrelas">' + repeat('★', stars) + '</div>'
-        + '<blockquote class="testi-text">' + esc(t.text) + '</blockquote>'
-        + '<figcaption class="testi-author">'
-        +   '<span class="testi-av" aria-hidden="true">' + esc(t.initials) + '</span>'
-        +   '<span><span class="testi-name">' + esc(t.author) + '</span>'
-        +   '<span class="testi-role">' + esc(t.role) + '</span></span>'
-        + '</figcaption>'
-        + '</figure>';
-    }).join(''));
-  }
-
-  /* ── Contato ─────────────────────────────────────────────────── */
-  function contact(data, partnersList, brand) {
-    text('contact-eyebrow', data.eyebrow);
-    mount('contact-title', data.title);
-    mount('contact-lead', data.leadHtml);
-    text('contact-note', data.note);
-
+  /* ── Contato: cartões dos sócios + pílulas de rede social ────── */
+  function contactDirectory(partnersList, brand) {
     mount('contact-partners', partnersList.map(function (p) {
       return '<div class="cp">'
         + '<p class="cp-name">' + esc(p.name) + '</p>'
@@ -217,7 +79,7 @@ const Render = (function () {
     mount('contact-social', socialPills(brand, true));
   }
 
-  /* Pílulas de rede social (Instagram, LinkedIn, WhatsApp geral → José) */
+  /* Pílulas de rede social (Instagram, LinkedIn, WhatsApp geral) */
   function socialPills(brand, withLabels) {
     var out = [];
     if (brand.instagram) {
@@ -244,13 +106,10 @@ const Render = (function () {
       + areas.map(function (a) { return '<option>' + esc(a) + '</option>'; }).join('');
   }
 
-  /* ── Rodapé ──────────────────────────────────────────────────── */
-  function footer(brand, footerData, partnersList) {
-    text('footer-tagline', brand.tagline + '.');
-    text('footer-note', footerData.note);
-    text('footer-copy',
-      '© ' + new Date().getFullYear() + ' ' + brand.name + ' · ' + brand.city
-      + ' · Todos os direitos reservados');
+  /* ── Rodapé: cartões dos sócios + redes + ano ────────────────── */
+  function footerDirectory(brand, partnersList) {
+    var y = document.getElementById('footer-year');
+    if (y) y.textContent = new Date().getFullYear();
 
     mount('footer-social', socialPills(brand, false));
 
@@ -287,17 +146,9 @@ const Render = (function () {
   /* ── Ponto de entrada ────────────────────────────────────────── */
   function init(data) {
     nav(data.nav, data.brand);
-    marquee(data.marquee);
-    partnersSection(data.socios);
-    partners(data.partners);
-    manifesto(data.manifesto);
-    services(data.services);
-    process(data.process);
-    faq(data.faq);
-    testimonials(data.testimonials);
-    contact(data.contact, data.partners, data.brand);
+    contactDirectory(data.partners, data.brand);
     contactAreas(data.contactAreas);
-    footer(data.brand, data.footer, data.partners);
+    footerDirectory(data.brand, data.partners);
   }
 
   return { init: init, waLink: waLink };
