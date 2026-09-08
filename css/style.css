@@ -336,7 +336,11 @@ body.no-scroll .nav-toggle span { background: var(--cream); }
   display: flex; width: max-content;
   animation: marquee 38s linear infinite;
 }
-.marquee:hover .marquee-track { animation-play-state: paused; }
+/* Pausa só onde existe cursor de verdade — no touch o :hover "gruda"
+   depois de encostar o dedo e a faixa nunca voltava a rodar */
+@media (hover: hover) {
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
 .marquee-item {
   display: inline-flex; align-items: center;
   padding: 0 2.2rem;
@@ -836,13 +840,20 @@ h2 em::after {
   .section-head--split { flex-direction: column; align-items: flex-start; gap: .8rem; }
   .section-desc { text-align: left; max-width: none; font-size: .9rem; }
 
-  .hero { min-height: auto; padding-top: calc(var(--nav-h) + 2.5rem); padding-bottom: 3.5rem; }
+  .hero { min-height: 92svh; padding-top: calc(var(--nav-h) + 2rem); padding-bottom: 3rem; }
   .hero h1 { margin: 1.2rem 0 1.1rem; }
   .hero-sub { font-size: 1rem; }
   .hero-actions { margin-top: 1.8rem; gap: .7rem; }
   .hero-actions .btn { flex: 1 1 100%; justify-content: center; padding: 1rem 1.4rem; }
   .hero-scroll { margin-top: 2.4rem; }
-  .hero-mark { width: 84vw; right: -20%; top: auto; bottom: 4%; transform: none; opacity: .12; }
+  /* Monograma da marca preenchido, grande, sangrando pela direita —
+     ancora a composição e ocupa o vazio ao lado do título */
+  .hero-mark {
+    width: 132vw; height: auto;
+    right: -56%; left: auto; top: 50%; bottom: auto;
+    transform: translateY(-50%);
+    fill: var(--rust); stroke: none; opacity: .09;
+  }
 
   .partner-photo { aspect-ratio: 4 / 5; min-height: 400px; }
   .partner-body { padding: 1.5rem 1.4rem; }
