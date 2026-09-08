@@ -32,10 +32,20 @@
     // Parallax sutil do monograma do hero (só desktop/tablet)
     if (heroMark && !reduceMotion && window.innerWidth > 680 && y < window.innerHeight) {
       heroMark.style.transform = 'translateY(calc(-50% + ' + (y * 0.12).toFixed(1) + 'px))';
+    } else if (heroMark && window.innerWidth <= 680 && heroMark.style.transform) {
+      // no mobile o CSS controla a posição — limpa transform inline herdado do desktop
+      heroMark.style.transform = '';
     }
   }
+
+  var scrollTicking = false;
+  function onScrollRaf() {
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(function () { scrollTicking = false; onScroll(); });
+  }
   onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', onScrollRaf, { passive: true });
 
   /* ──────────────────────────────────────────
      MENU MOBILE (overlay)

@@ -23,6 +23,14 @@ const Render = (function () {
     for (var i = 0; i < n; i++) out += str;
     return out;
   }
+  /* Escapa texto/atributos ao montar HTML por concatenação.
+     NÃO usar nos campos *Html (bioHtml, titleHtml, leadHtml…), que
+     contêm marcação proposital e vão direto pelo mount(). */
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
   function waLink(phone, msg) {
     return 'https://wa.me/' + phone + (msg ? '?text=' + encodeURIComponent(msg) : '');
   }
@@ -30,8 +38,8 @@ const Render = (function () {
   /* ── Navegação ───────────────────────────────────────────────── */
   function nav(items, brand) {
     var links = items.map(function (item) {
-      return '<a href="#' + item.target + '" class="nav-link" data-scroll data-spy="' + item.target + '">'
-        + item.label + '</a>';
+      return '<a href="#' + esc(item.target) + '" class="nav-link" data-scroll data-spy="' + esc(item.target) + '">'
+        + esc(item.label) + '</a>';
     }).join('');
 
     var bar = document.getElementById('nav-links');
@@ -41,8 +49,8 @@ const Render = (function () {
       + ' stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
     mount('nav-overlay-links', items.map(function (item, i) {
-      return '<a href="#' + item.target + '" class="nav-overlay-link" data-scroll data-spy="' + item.target + '"'
-        + ' style="--i:' + i + '"><span>' + item.label + '</span>' + arrow + '</a>';
+      return '<a href="#' + esc(item.target) + '" class="nav-overlay-link" data-scroll data-spy="' + esc(item.target) + '"'
+        + ' style="--i:' + i + '"><span>' + esc(item.label) + '</span>' + arrow + '</a>';
     }).join(''));
 
     var wa = brand.whatsapp
@@ -50,10 +58,10 @@ const Render = (function () {
     mount('nav-overlay-foot',
       '<a href="#contato" class="btn btn-solid-light" data-scroll>Entre em contato</a>'
       + '<div class="nol-contact">'
-      +   (wa ? '<a href="' + wa + '" target="_blank" rel="noopener">' + icon('wa') + brand.whatsapp.label + '</a>' : '')
-      +   '<a href="mailto:' + brand.email + '">' + icon('mail') + brand.email + '</a>'
-      +   (brand.instagram ? '<a href="' + brand.instagram.url + '" target="_blank" rel="noopener">' + icon('ig') + brand.instagram.handle + '</a>' : '')
-      +   (brand.linkedin ? '<a href="' + brand.linkedin.url + '" target="_blank" rel="noopener">' + icon('in') + 'LinkedIn</a>' : '')
+      +   (wa ? '<a href="' + esc(wa) + '" target="_blank" rel="noopener">' + icon('wa') + esc(brand.whatsapp.label) + '</a>' : '')
+      +   '<a href="mailto:' + esc(brand.email) + '">' + icon('mail') + esc(brand.email) + '</a>'
+      +   (brand.instagram ? '<a href="' + esc(brand.instagram.url) + '" target="_blank" rel="noopener">' + icon('ig') + esc(brand.instagram.handle) + '</a>' : '')
+      +   (brand.linkedin ? '<a href="' + esc(brand.linkedin.url) + '" target="_blank" rel="noopener">' + icon('in') + 'LinkedIn</a>' : '')
       + '</div>');
   }
 
@@ -63,9 +71,9 @@ const Render = (function () {
     mount('hero-title', data.titleHtml);
     text('hero-sub', data.sub);
     mount('hero-actions',
-      '<a href="#contato" class="btn btn-solid" data-scroll>' + data.ctaPrimary.label + '</a>'
-      + '<a href="#' + data.ctaSecondary.target + '" class="btn btn-line" data-scroll>'
-      + data.ctaSecondary.label + '</a>');
+      '<a href="#contato" class="btn btn-solid" data-scroll>' + esc(data.ctaPrimary.label) + '</a>'
+      + '<a href="#' + esc(data.ctaSecondary.target) + '" class="btn btn-line" data-scroll>'
+      + esc(data.ctaSecondary.label) + '</a>');
   }
 
   /* ── Faixa de áreas (marquee) ───────────────────────────────── */
@@ -73,7 +81,7 @@ const Render = (function () {
     if (!items || !items.length) return;
     var seq = items.concat(items); // duplica para loop contínuo
     mount('marquee-track', seq.map(function (t) {
-      return '<span class="marquee-item">' + t + '</span>';
+      return '<span class="marquee-item">' + esc(t) + '</span>';
     }).join(''));
   }
 
@@ -88,19 +96,19 @@ const Render = (function () {
     mount('partners-grid', list.map(function (p, i) {
       var initials = p.name.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join('');
       var chips = (p.focus || []).map(function (f) {
-        return '<li>' + f + '</li>';
+        return '<li>' + esc(f) + '</li>';
       }).join('');
 
       return '<article class="partner reveal" style="--d:' + (i * 120) + 'ms">'
         + '<div class="partner-photo">'
-        +   '<span class="partner-initials" aria-hidden="true">' + initials + '</span>'
-        +   '<img src="' + p.photo + '" alt="' + p.photoAlt + '"'
+        +   '<span class="partner-initials" aria-hidden="true">' + esc(initials) + '</span>'
+        +   '<img src="' + esc(p.photo) + '" alt="' + esc(p.photoAlt) + '"'
         +     ' onerror="this.remove()">'
-        +   '<span class="partner-oab">' + p.oab + '</span>'
+        +   '<span class="partner-oab">' + esc(p.oab) + '</span>'
         + '</div>'
         + '<div class="partner-body">'
-        +   '<p class="partner-role">' + p.role + '</p>'
-        +   '<h3 class="partner-name">' + p.name + '</h3>'
+        +   '<p class="partner-role">' + esc(p.role) + '</p>'
+        +   '<h3 class="partner-name">' + esc(p.name) + '</h3>'
         +   '<p class="partner-bio">' + p.bioHtml + '</p>'
         +   (chips ? '<ul class="partner-focus">' + chips + '</ul>' : '')
         + '</div>'
@@ -115,7 +123,7 @@ const Render = (function () {
     mount('manifesto-lead', data.leadHtml);
     mount('manifesto-text', data.textHtml);
     mount('manifesto-cta',
-      '<a href="#contato" class="btn btn-solid-light" data-scroll>' + data.cta.label + ' →</a>');
+      '<a href="#contato" class="btn btn-solid-light" data-scroll>' + esc(data.cta.label) + ' →</a>');
   }
 
   /* ── Serviços ────────────────────────────────────────────────── */
@@ -127,8 +135,8 @@ const Render = (function () {
     mount('services-grid', data.items.map(function (s, i) {
       return '<article class="service reveal" style="--d:' + ((i % 3) * 70) + 'ms">'
         + '<span class="service-n">' + String(i + 1).padStart(2, '0') + '</span>'
-        + '<h3 class="service-t">' + s.title + '</h3>'
-        + '<p class="service-d">' + s.description + '</p>'
+        + '<h3 class="service-t">' + esc(s.title) + '</h3>'
+        + '<p class="service-d">' + esc(s.description) + '</p>'
         + '</article>';
     }).join(''));
   }
@@ -142,8 +150,8 @@ const Render = (function () {
       return '<li class="pstep reveal" style="--d:' + (i * 80) + 'ms">'
         + '<span class="pstep-n">' + String(i + 1).padStart(2, '0') + '</span>'
         + '<div class="pstep-body">'
-        +   '<h3>' + s.title + '</h3>'
-        +   '<p>' + s.desc + '</p>'
+        +   '<h3>' + esc(s.title) + '</h3>'
+        +   '<p>' + esc(s.desc) + '</p>'
         + '</div>'
         + '</li>';
     }).join(''));
@@ -156,11 +164,11 @@ const Render = (function () {
 
     mount('faq-list', data.items.map(function (it, i) {
       return '<details class="faq-item reveal" style="--d:' + (i * 50) + 'ms">'
-        + '<summary>' + it.q
+        + '<summary>' + esc(it.q)
         +   '<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"'
         +     ' stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'
         + '</summary>'
-        + '<div class="faq-answer"><p>' + it.a + '</p></div>'
+        + '<div class="faq-answer"><p>' + esc(it.a) + '</p></div>'
         + '</details>';
     }).join(''));
 
@@ -187,13 +195,14 @@ const Render = (function () {
     text('testimonials-eyebrow', data.eyebrow);
     mount('testimonials-title', data.title);
     mount('testimonials-grid', data.items.map(function (t, i) {
+      var stars = Math.max(0, Math.min(5, parseInt(t.stars, 10) || 0));
       return '<figure class="testi reveal" style="--d:' + (i * 90) + 'ms">'
-        + '<div class="testi-stars" aria-label="' + t.stars + ' de 5 estrelas">' + repeat('★', t.stars) + '</div>'
-        + '<blockquote class="testi-text">' + t.text + '</blockquote>'
+        + '<div class="testi-stars" aria-label="' + stars + ' de 5 estrelas">' + repeat('★', stars) + '</div>'
+        + '<blockquote class="testi-text">' + esc(t.text) + '</blockquote>'
         + '<figcaption class="testi-author">'
-        +   '<span class="testi-av" aria-hidden="true">' + t.initials + '</span>'
-        +   '<span><span class="testi-name">' + t.author + '</span>'
-        +   '<span class="testi-role">' + t.role + '</span></span>'
+        +   '<span class="testi-av" aria-hidden="true">' + esc(t.initials) + '</span>'
+        +   '<span><span class="testi-name">' + esc(t.author) + '</span>'
+        +   '<span class="testi-role">' + esc(t.role) + '</span></span>'
         + '</figcaption>'
         + '</figure>';
     }).join(''));
@@ -208,11 +217,11 @@ const Render = (function () {
 
     mount('contact-partners', partnersList.map(function (p) {
       return '<div class="cp">'
-        + '<p class="cp-name">' + p.name + '</p>'
-        + '<p class="cp-role">' + p.role + ' · ' + p.oab + '</p>'
-        + '<a href="' + waLink(p.phone, p.waMsg) + '" target="_blank" rel="noopener">'
-        +   icon('wa') + p.phoneFormatted + '</a>'
-        + '<a href="mailto:' + p.email + '">' + icon('mail') + p.email + '</a>'
+        + '<p class="cp-name">' + esc(p.name) + '</p>'
+        + '<p class="cp-role">' + esc(p.role) + ' · ' + esc(p.oab) + '</p>'
+        + '<a href="' + esc(waLink(p.phone, p.waMsg)) + '" target="_blank" rel="noopener">'
+        +   icon('wa') + esc(p.phoneFormatted) + '</a>'
+        + '<a href="mailto:' + esc(p.email) + '">' + icon('mail') + esc(p.email) + '</a>'
         + '</div>';
     }).join(''));
 
@@ -223,15 +232,15 @@ const Render = (function () {
   function socialPills(brand, withLabels) {
     var out = [];
     if (brand.instagram) {
-      out.push('<a href="' + brand.instagram.url + '" target="_blank" rel="noopener" class="social-pill">'
-        + icon('ig') + (withLabels ? 'Instagram ' : '') + brand.instagram.handle + '</a>');
+      out.push('<a href="' + esc(brand.instagram.url) + '" target="_blank" rel="noopener" class="social-pill">'
+        + icon('ig') + (withLabels ? 'Instagram ' : '') + esc(brand.instagram.handle) + '</a>');
     }
     if (brand.linkedin) {
-      out.push('<a href="' + brand.linkedin.url + '" target="_blank" rel="noopener" class="social-pill">'
+      out.push('<a href="' + esc(brand.linkedin.url) + '" target="_blank" rel="noopener" class="social-pill">'
         + icon('in') + 'LinkedIn' + '</a>');
     }
     if (brand.whatsapp) {
-      out.push('<a href="' + waLink(brand.whatsapp.phone, 'Olá! Encontrei o site do TQA Advogados e gostaria de conversar.')
+      out.push('<a href="' + esc(waLink(brand.whatsapp.phone, 'Olá! Encontrei o site do TQA Advogados e gostaria de conversar.'))
         + '" target="_blank" rel="noopener" class="social-pill">'
         + icon('wa') + 'WhatsApp' + '</a>');
     }
@@ -243,7 +252,7 @@ const Render = (function () {
     var sel = document.getElementById('f-area');
     if (!sel) return;
     sel.innerHTML = '<option value="">Selecione...</option>'
-      + areas.map(function (a) { return '<option>' + a + '</option>'; }).join('');
+      + areas.map(function (a) { return '<option>' + esc(a) + '</option>'; }).join('');
   }
 
   /* ── Rodapé ──────────────────────────────────────────────────── */
@@ -258,12 +267,12 @@ const Render = (function () {
 
     mount('footer-partners', partnersList.map(function (p) {
       return '<div class="fp">'
-        + '<p class="fp-name">' + p.name + '</p>'
-        + '<p class="fp-role">' + p.role + ' &nbsp;|&nbsp; ' + p.oab + '</p>'
-        + '<a href="https://wa.me/' + p.phone + '" target="_blank" rel="noopener">' + p.phoneFormatted + '</a>'
-        + '<a href="mailto:' + p.email + '">' + p.email + '</a>'
+        + '<p class="fp-name">' + esc(p.name) + '</p>'
+        + '<p class="fp-role">' + esc(p.role) + ' &nbsp;|&nbsp; ' + esc(p.oab) + '</p>'
+        + '<a href="https://wa.me/' + esc(p.phone) + '" target="_blank" rel="noopener">' + esc(p.phoneFormatted) + '</a>'
+        + '<a href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a>'
         + (p.instagram
-            ? '<a href="' + p.instagram.url + '" target="_blank" rel="noopener">Instagram ' + p.instagram.handle + '</a>'
+            ? '<a href="' + esc(p.instagram.url) + '" target="_blank" rel="noopener">Instagram ' + esc(p.instagram.handle) + '</a>'
             : '')
         + '</div>';
     }).join(''));

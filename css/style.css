@@ -3,6 +3,27 @@
    Paleta fixa: #74360F · #301E10 · #12110F · #E1DBCD
    ============================================================ */
 
+/* ── FONTE ──
+   Inter auto-hospedada (fonte variável, cobre os pesos 300–700 num
+   único arquivo). Evita enviar o IP de cada visitante ao Google e
+   acelera o primeiro render. Arquivos em assets/fonts/. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('../assets/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('../assets/fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 /* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
@@ -24,7 +45,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
   --paper-2:     #ECE3D4;
   --text:        #2b1c11;
   --text-soft:   #5c4a3a;
-  --muted:       #8a7660;
+  --muted:       #736051;  /* escurecido p/ contraste AA em texto pequeno */
 
   --line:        rgba(48, 30, 16, .14);
   --line-soft:   rgba(48, 30, 16, .08);
@@ -70,6 +91,20 @@ body.no-scroll { overflow: hidden; }
 .skip-link:focus { transform: translateY(0); }
 
 :focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; border-radius: 2px; }
+
+/* ── Fallback sem JavaScript ── */
+.noscript-fallback {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 3rem) clamp(1.25rem, 5vw, 3rem) 4rem;
+  color: var(--text);
+}
+.noscript-fallback h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin-bottom: 1rem; }
+.noscript-fallback h2 { font-size: 1.15rem; margin: 2rem 0 .6rem; }
+.noscript-fallback p { margin-bottom: 1rem; color: var(--text-soft); }
+.noscript-fallback ul { margin: 0 0 1rem 1.2rem; color: var(--text-soft); }
+.noscript-fallback li { margin-bottom: .3rem; }
+.noscript-fallback a { color: var(--rust); text-decoration: underline; }
 
 /* ── TIPOGRAFIA ── */
 h1, h2, h3 { font-family: var(--geo); font-weight: 600; line-height: 1.08; letter-spacing: -.022em; color: var(--text); }
@@ -251,7 +286,7 @@ body.no-scroll .nav-toggle span { background: var(--cream); }
 .nol-contact { display: flex; flex-direction: column; gap: .7rem; }
 .nol-contact a {
   display: flex; align-items: center; gap: .7rem;
-  font-size: .88rem; color: rgba(225, 219, 205, .58);
+  font-size: .88rem; color: rgba(225, 219, 205, .78);
   transition: color .2s;
 }
 .nol-contact a:hover { color: #e7b487; }
@@ -662,12 +697,12 @@ h2 em::after {
 .contact-partners { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 2rem 0; }
 .cp { border: 1px solid var(--line-light); border-radius: 4px; padding: 1.1rem 1.2rem; }
 .cp-name { font-family: var(--geo); font-weight: 500; font-size: .98rem; color: var(--cream); }
-.cp-role { font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(225, 219, 205, .5); margin-bottom: .7rem; }
+.cp-role { font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(225, 219, 205, .62); margin-bottom: .7rem; }
 .cp a { display: flex; align-items: center; gap: .5rem; font-size: .8rem; color: rgba(225, 219, 205, .78); padding: .18rem 0; transition: color .2s; }
 .cp a:hover { color: #e7b487; }
 .cp svg { width: 14px; height: 14px; color: #d59a63; flex-shrink: 0; }
 .contact-note {
-  font-size: .76rem; color: rgba(225, 219, 205, .45); line-height: 1.65;
+  font-size: .76rem; color: rgba(225, 219, 205, .64); line-height: 1.65;
   border-left: 2px solid rgba(213, 154, 99, .5); padding-left: .9rem;
 }
 
@@ -693,7 +728,7 @@ h2 em::after {
 .field select option { background: var(--espresso); color: var(--cream); }
 
 .form-send { margin-top: .5rem; }
-.form-send-label { display: block; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(225, 219, 205, .45); margin-bottom: .6rem; }
+.form-send-label { display: block; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(225, 219, 205, .62); margin-bottom: .6rem; }
 .form-send-btns { display: flex; flex-wrap: wrap; gap: .6rem; }
 .contact .btn-solid { background: var(--cream); color: var(--espresso); }
 .contact .btn-solid:hover { background: #fff; }
@@ -718,18 +753,18 @@ h2 em::after {
   padding-bottom: 2.5rem; border-bottom: 1px solid var(--line-light);
 }
 .footer-brand img { height: 46px; width: auto; margin-bottom: 1.1rem; display: block; }
-.footer-brand p { font-size: .82rem; color: rgba(225, 219, 205, .5); max-width: 30ch; }
+.footer-brand p { font-size: .82rem; color: rgba(225, 219, 205, .62); max-width: 30ch; }
 .footer-partners { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .fp-name { font-family: var(--geo); font-weight: 500; color: var(--cream); font-size: .95rem; }
-.fp-role { font-size: .72rem; color: rgba(225, 219, 205, .5); margin-bottom: .6rem; }
+.fp-role { font-size: .72rem; color: rgba(225, 219, 205, .62); margin-bottom: .6rem; }
 .fp a { display: block; font-size: .8rem; color: rgba(225, 219, 205, .72); padding: .16rem 0; transition: color .2s; }
 .fp a:hover { color: #e7b487; }
 .footer-bottom {
   max-width: var(--wrap); margin: 2rem auto 0;
   display: flex; flex-direction: column; gap: 1rem;
 }
-.footer-note { font-size: .72rem; color: rgba(225, 219, 205, .38); line-height: 1.6; max-width: 80ch; }
-.footer-copy { font-size: .72rem; color: rgba(225, 219, 205, .5); }
+.footer-note { font-size: .72rem; color: rgba(225, 219, 205, .6); line-height: 1.6; max-width: 80ch; }
+.footer-copy { font-size: .72rem; color: rgba(225, 219, 205, .62); }
 
 /* ============================================================
    WHATSAPP FLUTUANTE

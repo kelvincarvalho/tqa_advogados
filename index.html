@@ -11,7 +11,6 @@
   <meta name="geo.placename" content="Curitiba">
   <meta name="theme-color" content="#301E10">
 
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <!-- Open Graph -->
@@ -125,9 +124,7 @@
   <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
   <link rel="apple-touch-icon" href="assets/favicon-180.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-latin.woff2" crossorigin>
 
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -168,6 +165,41 @@
 </div>
 
 <main class="main" id="conteudo">
+
+  <!-- Conteúdo essencial para navegadores/rastreadores sem JavaScript -->
+  <noscript>
+    <div class="noscript-fallback">
+      <h1>Terres &amp; Queiroz Advogados</h1>
+      <p><strong>Assessoria jurídica empresarial e patrimonial em Curitiba e região.</strong>
+        Atendemos empresas, empresários e famílias, reunindo atuação consultiva,
+        preventiva e contenciosa sob a mesma equipe.</p>
+
+      <h2>Áreas de atuação</h2>
+      <ul>
+        <li>Assessoria Full Service Empresarial</li>
+        <li>Assessoria Trabalhista Empresarial</li>
+        <li>Direito Societário</li>
+        <li>Contratos</li>
+        <li>Contencioso Empresarial</li>
+        <li>Due Diligence Patrimonial</li>
+        <li>Planejamento Patrimonial e Sucessório</li>
+        <li>Direito Tributário</li>
+        <li>Direito Imobiliário e Notarial</li>
+      </ul>
+
+      <h2>Contato</h2>
+      <p>
+        WhatsApp / telefone: <a href="https://wa.me/5541988855715">(41) 98885-5715</a><br>
+        E-mail: <a href="mailto:contato@tqadvogados.adv.br">contato@tqadvogados.adv.br</a><br>
+        Instagram: <a href="https://www.instagram.com/tqa.advogados" rel="noopener">@tqa.advogados</a><br>
+        LinkedIn: <a href="https://www.linkedin.com/company/terres-queiroz-advogados" rel="noopener">Terres &amp; Queiroz Advogados</a>
+      </p>
+
+      <p><small>Este site é interativo e funciona melhor com o JavaScript ativado.
+        Conteúdo meramente informativo, em conformidade com o Provimento nº 205/2021
+        e o Código de Ética e Disciplina da OAB.</small></p>
+    </div>
+  </noscript>
 
   <!-- ═══════════════ HERO ═══════════════ -->
   <section id="inicio" class="hero" aria-label="Apresentação">
