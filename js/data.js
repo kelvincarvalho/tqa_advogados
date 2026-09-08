@@ -54,14 +54,8 @@ const SITE = {
     'Direito Imobiliário',
   ],
 
-  /* ── Hero ────────────────────────────────────────────────────── */
-  hero: {
-    eyebrow:  'Terres & Queiroz Advogados',
-    titleHtml: 'Segurança jurídica<br>para quem <em>constrói</em>.',
-    sub: 'Assessoria jurídica empresarial e patrimonial. Atendemos empresas, empresários e famílias, reunindo atuação consultiva, preventiva e contenciosa sob a mesma equipe.',
-    ctaPrimary:   { label: 'Entre em contato' },              // rola até #contato
-    ctaSecondary: { label: 'Áreas de atuação', target: 'servicos' },
-  },
+  /* Hero: conteúdo agora é estático em index.html (SEO — o H1 e a
+     frase de abertura precisam existir no HTML sem depender de JS). */
 
   /* ── O escritório / Sócios ──────────────────────────────────── */
   socios: {

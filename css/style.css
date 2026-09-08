@@ -108,9 +108,9 @@ body.no-scroll { overflow: hidden; }
 
 /* ── TIPOGRAFIA ── */
 h1, h2, h3 { font-family: var(--geo); font-weight: 600; line-height: 1.08; letter-spacing: -.022em; color: var(--text); }
-h1 { font-size: clamp(2.15rem, 7vw, 4.4rem); font-weight: 700; }
+h1 { font-size: clamp(1.9rem, 5vw, 2.9rem); font-weight: 700; }
 h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
-h1 em, h2 em { font-style: normal; color: var(--rust); }
+h1 em, h2 em, .hero-headline em { font-style: normal; color: var(--rust); }
 
 .eyebrow {
   display: inline-flex; align-items: center; gap: .7rem;
@@ -310,7 +310,19 @@ body.no-scroll .nav-toggle span { background: var(--cream); }
   max-width: var(--wrap); margin: 0 auto; width: 100%;
 }
 .hero-text { max-width: 660px; }
-.hero h1 { margin: 1.6rem 0 1.4rem; }
+/* H1 real: frase-chave (discreta visualmente, forte para SEO) */
+.hero h1 {
+  font-family: var(--geo); font-weight: 500;
+  font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
+  line-height: 1.7; color: var(--rust); max-width: 34ch;
+}
+/* Frase de posicionamento — visualmente o "título" grande do hero */
+.hero-headline {
+  font-family: var(--geo); font-weight: 700;
+  font-size: clamp(2.15rem, 7vw, 4.4rem);
+  line-height: 1.08; letter-spacing: -.022em; color: var(--text);
+  margin: 1.4rem 0 1.4rem;
+}
 .hero-sub {
   font-size: clamp(1rem, 1.6vw, 1.18rem);
   color: var(--text-soft); font-weight: 300;
@@ -876,7 +888,7 @@ h2 em::after {
   .section-desc { text-align: left; max-width: none; font-size: .9rem; }
 
   .hero { min-height: 92svh; padding-top: calc(var(--nav-h) + 2rem); padding-bottom: 3rem; }
-  .hero h1 { margin: 1.2rem 0 1.1rem; }
+  .hero-headline { margin: 1.1rem 0 1.1rem; }
   .hero-sub { font-size: 1rem; }
   .hero-actions { margin-top: 1.8rem; gap: .7rem; }
   .hero-actions .btn { flex: 1 1 100%; justify-content: center; padding: 1rem 1.4rem; }
@@ -922,7 +934,7 @@ h2 em::after {
 }
 
 @media (max-width: 360px) {
-  .hero h1 { font-size: 1.95rem; }
+  .hero-headline { font-size: 1.95rem; }
   .btn { padding: .9rem 1.2rem; font-size: .8rem; }
 }
 

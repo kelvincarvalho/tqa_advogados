@@ -65,17 +65,6 @@ const Render = (function () {
       + '</div>');
   }
 
-  /* ── Hero ────────────────────────────────────────────────────── */
-  function hero(data) {
-    text('hero-eyebrow', data.eyebrow);
-    mount('hero-title', data.titleHtml);
-    text('hero-sub', data.sub);
-    mount('hero-actions',
-      '<a href="#contato" class="btn btn-solid" data-scroll>' + esc(data.ctaPrimary.label) + '</a>'
-      + '<a href="#' + esc(data.ctaSecondary.target) + '" class="btn btn-line" data-scroll>'
-      + esc(data.ctaSecondary.label) + '</a>');
-  }
-
   /* ── Faixa de áreas (marquee) ───────────────────────────────── */
   function marquee(items) {
     if (!items || !items.length) return;
@@ -298,7 +287,6 @@ const Render = (function () {
   /* ── Ponto de entrada ────────────────────────────────────────── */
   function init(data) {
     nav(data.nav, data.brand);
-    hero(data.hero);
     marquee(data.marquee);
     partnersSection(data.socios);
     partners(data.partners);
