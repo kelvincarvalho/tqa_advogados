@@ -310,18 +310,12 @@ body.no-scroll .nav-toggle span { background: var(--cream); }
   max-width: var(--wrap); margin: 0 auto; width: 100%;
 }
 .hero-text { max-width: 660px; }
-/* H1 real: frase-chave (discreta visualmente, forte para SEO) */
-.hero h1 {
-  font-family: var(--geo); font-weight: 500;
-  font-size: .72rem; letter-spacing: .16em; text-transform: uppercase;
-  line-height: 1.7; color: var(--rust); max-width: 34ch;
-}
-/* Frase de posicionamento — visualmente o "título" grande do hero */
+/* H1 do hero — a frase de posicionamento é o título grande e o H1 */
 .hero-headline {
   font-family: var(--geo); font-weight: 700;
   font-size: clamp(2.15rem, 7vw, 4.4rem);
   line-height: 1.08; letter-spacing: -.022em; color: var(--text);
-  margin: 1.4rem 0 1.4rem;
+  margin: 0 0 1.4rem;
 }
 .hero-sub {
   font-size: clamp(1rem, 1.6vw, 1.18rem);
@@ -888,7 +882,7 @@ h2 em::after {
   .section-desc { text-align: left; max-width: none; font-size: .9rem; }
 
   .hero { min-height: 92svh; padding-top: calc(var(--nav-h) + 2rem); padding-bottom: 3rem; }
-  .hero-headline { margin: 1.1rem 0 1.1rem; }
+  .hero-headline { margin: 0 0 1.1rem; }
   .hero-sub { font-size: 1rem; }
   .hero-actions { margin-top: 1.8rem; gap: .7rem; }
   .hero-actions .btn { flex: 1 1 100%; justify-content: center; padding: 1rem 1.4rem; }
