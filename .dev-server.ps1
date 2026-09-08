@@ -11,7 +11,10 @@ $mime = @{
   '.html'='text/html; charset=utf-8'; '.css'='text/css; charset=utf-8'; '.js'='application/javascript; charset=utf-8'
   '.json'='application/json'; '.svg'='image/svg+xml'; '.jpg'='image/jpeg'; '.jpeg'='image/jpeg'
   '.png'='image/png'; '.webp'='image/webp'; '.ico'='image/x-icon'; '.xml'='application/xml'; '.txt'='text/plain'
+  '.woff2'='font/woff2'; '.woff'='font/woff'
 }
+
+$rootFull = [System.IO.Path]::GetFullPath($root).TrimEnd('\','/') + [System.IO.Path]::DirectorySeparatorChar
 
 while ($listener.IsListening) {
   $ctx = $listener.GetContext()
@@ -20,7 +23,16 @@ while ($listener.IsListening) {
     if ([string]::IsNullOrWhiteSpace($rel)) { $rel = 'index.html' }
     $path = Join-Path $root $rel
     if (Test-Path $path -PathType Container) { $path = Join-Path $path 'index.html' }
-    if (Test-Path $path -PathType Leaf) {
+
+    # Impede path traversal: o alvo tem de estar dentro da raiz
+    $full = [System.IO.Path]::GetFullPath($path)
+    if (-not $full.StartsWith($rootFull, [StringComparison]::OrdinalIgnoreCase)) {
+      $ctx.Response.StatusCode = 403
+      $b = [System.Text.Encoding]::UTF8.GetBytes('403: forbidden')
+      $ctx.Response.OutputStream.Write($b, 0, $b.Length)
+    }
+    elseif (Test-Path $full -PathType Leaf) {
+      $path = $full
       $ext = [System.IO.Path]::GetExtension($path).ToLower()
       $ct = $mime[$ext]; if (-not $ct) { $ct = 'application/octet-stream' }
       $bytes = [System.IO.File]::ReadAllBytes($path)
